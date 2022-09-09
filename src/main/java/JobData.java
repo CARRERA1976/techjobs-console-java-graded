@@ -1,3 +1,5 @@
+package org.launchcode.techjobs.console;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -27,6 +29,7 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
+    //takes a string & returns an ArrayList
     public static ArrayList<String> findAll(String field) {
 
         // load data, if not already loaded
@@ -41,22 +44,18 @@ public class JobData {
                 values.add(aValue);
             }
         }
-
-        // Bonus mission: sort the results
-        Collections.sort(values);
-
         return values;
     }
-
+        // Bonus mission: sort the results
+        //Collections.sort(values);
     public static ArrayList<HashMap<String, String>> findAll() {
 
         // load data, if not already loaded
         loadData();
-
-        // Bonus mission; normal version returns allJobs
-        return new ArrayList<>(allJobs);
+        return allJobs;
     }
-
+        // Bonus mission; normal version returns allJobs
+        //return new ArrayList<>(allJobs);
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
@@ -79,7 +78,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) {
                 jobs.add(row);
             }
         }
@@ -100,15 +99,22 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
+            String upperVals = "";
 
-            for (HashMap.Entry<String, String> item : row.entrySet()) {
+            vals = row.values();
+            for (String aVal : vals){
+                aVal = aVal.toUpperCase();
+                upperVals += aVal;
+            }
+            //System.out.println(upperVals);
 
-                if (item.getValue().toLowerCase().contains(value.toLowerCase())) {
-                    jobs.add(row);
-                }
+            if (upperVals.contains(value.toUpperCase())) {
+                jobs.add(row);
             }
         }
 
+        return jobs;
+    }
         // TODO - implement this method
         return null;
     }
