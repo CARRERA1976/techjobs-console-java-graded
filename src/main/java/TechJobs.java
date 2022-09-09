@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
+/*
  * Created by LaunchCode
  */
 public class TechJobs {
